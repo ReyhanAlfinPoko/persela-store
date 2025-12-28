@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Persela Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/css/base.css">
+</head>
+<body class="text-white" data-theme="dark">
+<nav class="sticky top-0 z-50 nav-surface backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-6">
+        <a href="/index.html" class="flex items-center gap-3">
+            <div class="relative w-40 h-12 overflow-hidden">
+                <img src="/logo-dark.png" alt="Logo" class="w-full h-full object-contain logo-dark">
+                <img src="/logo-light.png" alt="Logo" class="w-full h-full object-contain hidden logo-light">
+            </div>
+        </a>
+
+        <div class="flex-1 flex justify-center">
+            <div class="flex items-center gap-6 text-sm font-semibold">
+                <a href="/index.html" class="nav-link">Beranda</a>
+                <a href="/produk/index.html" class="nav-link">Produk</a>
+                <a href="/orders/index.html" class="nav-link">Riwayat</a>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3" id="authMenu"></div>
+
+        <div class="flex items-center gap-3 text-white">
+            <div class="relative">
+                <button id="navSearchBtn" title="Cari produk" class="p-2 rounded-full hover:bg-white/10">
+                    <img src="/icons/search.png" alt="search" class="w-5 h-5">
+                </button>
+                <div id="navSearchBar" class="hidden fixed left-1/2 -translate-x-1/2 top-20 bg-white/95 backdrop-blur text-black rounded-full px-4 py-2 flex items-center gap-3 shadow-2xl border border-black/5 w-[min(90%,640px)]">
+                    <img src="/icons/search.png" alt="search" class="w-5 h-5 opacity-70">
+                    <input id="navSearchInput" type="text" placeholder="Search" class="flex-1 outline-none bg-transparent text-base text-gray-700 placeholder-gray-400">
+                    <button id="navSearchCancel" class="text-sm text-blue-600 px-3 py-1 rounded-full hover:bg-blue-50">Cancel</button>
+                </div>
+            </div>
+            <a href="/favorites/index.html" title="Favorit" class="p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/fav.png" alt="favorit" class="w-5 h-5">
+            </a>
+            <a href="/cart/index.html" title="Keranjang" class="relative p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/cart.png" alt="cart" class="w-5 h-5">
+                <span id="cartBadge" class="hidden absolute -top-1 -right-1 text-xs px-1.5 py-0.5 rounded-full bg-cyan-500 text-black font-semibold"></span>
+            </a>
+            <a href="/profile/index.html" id="profileIcon" title="Profil" class="hidden p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/profile.png" alt="profil" class="w-5 h-5">
+            </a>
+            <div id="authButtons" class="flex items-center gap-2"></div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+<div class="max-w-6xl mx-auto">
+    <div class="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <div>
+                <p class="text-sm text-white/60">Admin Panel</p>
+                <h1 class="text-2xl font-bold text-white">Data Jersey</h1>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+                <span id="status" class="text-white/60"></span>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-5 gap-3 mb-6">
+            <input id="nama" placeholder="Nama" class="bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white placeholder-white/40 focus:border-cyan-400 outline-none">
+            <input id="kategori" placeholder="Kategori" class="bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white placeholder-white/40 focus:border-cyan-400 outline-none">
+            <input id="harga" type="number" placeholder="Harga" class="bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white placeholder-white/40 focus:border-cyan-400 outline-none">
+            <input id="stok" type="number" placeholder="Stok" class="bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white placeholder-white/40 focus:border-cyan-400 outline-none">
+            <input id="ukuran" placeholder="Ukuran" class="bg-black/20 border border-white/10 rounded-xl px-3 py-2 text-white placeholder-white/40 focus:border-cyan-400 outline-none">
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-3 mb-6">
+            <div class="space-y-2">
+                <label class="text-sm text-white/70">Upload Gambar</label>
+                <div class="flex items-center gap-3">
+                    <input id="gambar" type="file" accept="image/*" class="hidden">
+                    <button type="button" id="gambarBtn"
+                        class="px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white text-sm hover:border-cyan-400 hover:bg-white/15 transition">
+                        Pilih File
+                    </button>
+                    <span id="gambarName" class="text-white/60 text-sm">Tidak ada file yang dipilih</span>
+                </div>
+            </div>
+            <div class="space-y-2">
+                <label class="text-sm text-white/70">Gambar Saat Ini</label>
+                <p id="currentImage" class="text-white/60 text-sm">-</p>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 mb-6">
+            <button id="cancelBtn" onclick="resetForm()"
+                    class="hidden px-6 py-2 rounded-xl border border-white/20 text-white text-sm hover:border-cyan-400 transition">
+                Batal
+            </button>
+            <button id="saveBtn" onclick="saveJersey()"
+                    class="px-6 py-2 rounded-xl bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition">
+                Tambah
+            </button>
+        </div>
+
+        <div class="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-white/10 text-left text-white/70">
+                        <tr>
+                            <th class="px-4 py-3">Nama</th>
+                            <th class="px-4 py-3">Kategori</th>
+                            <th class="px-4 py-3">Harga</th>
+                            <th class="px-4 py-3">Stok</th>
+                            <th class="px-4 py-3">Ukuran</th>
+                            <th class="px-4 py-3 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list" class="divide-y divide-white/5 text-white">
+                        <tr><td class="px-4 py-3 text-white/60" colspan="6">Memuat...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 shadow-lg mt-10">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+                <p class="text-sm text-white/60">Monitoring Pesanan</p>
+                <h2 class="text-xl font-semibold text-white">Riwayat Semua User</h2>
+            </div>
+            <button id="refreshOrders" class="px-4 py-2 rounded-xl bg-white/10 text-white text-sm border border-white/20 hover:border-cyan-400 transition">
+                Refresh
+            </button>
+        </div>
+        <div id="ordersList" class="space-y-4 text-sm"></div>
+    </div>
+</div>
+</main>
+
+<footer class="bg-[#070c17]/90 border-t border-white/5 mt-16">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3">
+        <div class="space-y-4">
+            <div class="relative w-40 h-12 overflow-hidden">
+                <img src="/logo-dark.png" alt="Logo" class="w-full h-full object-contain logo-dark">
+                <img src="/logo-light.png" alt="Logo" class="w-full h-full object-contain hidden logo-light">
+            </div>
+            <p class="text-white/60 text-sm leading-relaxed">
+                Dukung Persela dengan gaya. Merchandise resmi, proses cepat, dan pengalaman belanja modern.
+            </p>
+            <div class="flex gap-3">
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">IG</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">TW</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">IN</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">YT</span>
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="font-semibold text-white">Contact Us</h3>
+            <p class="text-white/70 text-sm">Lamongan, Jawa Timur, Indonesia</p>
+            <p class="text-white/70 text-sm">support@perselastore.id</p>
+            <p class="text-white/70 text-sm">+62 812-0000-0000</p>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="font-semibold text-white">Stay Updated</h3>
+            <p class="text-white/70 text-sm">Daftar untuk info rilis produk dan promo terbaru.</p>
+            <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-2">
+                <input type="email" placeholder="Email address" class="flex-1 bg-transparent text-sm text-white outline-none placeholder-white/40">
+                <button class="px-4 py-2 bg-cyan-500 text-black text-sm font-semibold rounded-lg hover:bg-cyan-400">Join</button>
+            </div>
+        </div>
+    </div>
+    <div class="border-t border-white/5 text-center text-xs text-white/50 py-4">
+        PerselaStore &copy; <span id="footer-year"></span>. All rights reserved.
+    </div>
+</footer>
+
+<script src="/assets/js/mock-api.js"></script>
+<script src="/assets/js/app.js"></script>
+<script>
+const token = localStorage.getItem('token');
+const statusEl = document.getElementById('status');
+const list = document.getElementById('list');
+const api = '/api/jerseys';
+const saveBtn = document.getElementById('saveBtn');
+let currentEditId = null;
+const gambarInput = document.getElementById('gambar');
+const gambarBtn = document.getElementById('gambarBtn');
+const gambarName = document.getElementById('gambarName');
+const currentImage = document.getElementById('currentImage');
+const cancelBtn = document.getElementById('cancelBtn');
+const ordersList = document.getElementById('ordersList');
+const refreshOrdersBtn = document.getElementById('refreshOrders');
+
+function authHeaders() {
+    const bearer = localStorage.getItem('bearerToken');
+    return {
+        ...(bearer ? { 'Authorization': bearer } : (token ? { 'Authorization': 'Bearer ' + token } : {}))
+    };
+}
+
+async function ensureAdmin() {
+    const bearer = localStorage.getItem('bearerToken');
+
+    if (!token && !bearer) {
+        location.href = '/login/index.html';
+        return false;
+    }
+
+    try {
+        const res = await fetch('/api/me', { headers: authHeaders() });
+        if (!res.ok) throw new Error('unauthorized');
+        const user = await res.json();
+        const isAdmin = user.is_admin === true || user.is_admin === 1 || user.is_admin === '1';
+        if (!isAdmin) {
+            alert('Hanya admin yang dapat mengakses dashboard.');
+            location.href = '/index.html';
+            return false;
+        }
+        statusEl.textContent = `Login sebagai ${user.email}`;
+        return true;
+    } catch (e) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('bearerToken');
+        localStorage.removeItem('isAdmin');
+        location.href = '/login/index.html';
+        return false;
+    }
+}
+
+function loadJersey() {
+    list.innerHTML = `<tr><td class="px-4 py-3 text-white/60" colspan="6">Memuat...</td></tr>`;
+    fetch(api)
+        .then(res => res.json())
+        .then(res => {
+            list.innerHTML = '';
+            (res.data || []).forEach(j => {
+                list.innerHTML += `
+                <tr class="hover:bg-white/5">
+                    <td class="px-4 py-3">${j.nama}</td>
+                    <td class="px-4 py-3 text-white/70">${j.kategori}</td>
+                    <td class="px-4 py-3 text-cyan-300">Rp ${Number(j.harga).toLocaleString('id-ID')}</td>
+                    <td class="px-4 py-3">${j.stok}</td>
+                    <td class="px-4 py-3">${j.ukuran}</td>
+                    <td class="px-4 py-3 text-center">
+                        <button onclick='startEdit(${JSON.stringify(j)})'
+                            class="px-3 py-1 rounded-lg bg-white/10 text-white text-xs hover:bg-white/20 mr-2">
+                            Edit
+                        </button>
+                        <button onclick="deleteJersey(${j.id})"
+                            class="px-3 py-1 rounded-lg bg-red-500 text-white text-xs hover:bg-red-400">
+                            Hapus
+                        </button>
+                    </td>
+                </tr>
+                `;
+            });
+            if (!res.data || !res.data.length) {
+                list.innerHTML = `<tr><td class="px-4 py-3 text-white/60" colspan="6">Belum ada data.</td></tr>`;
+            }
+        })
+        .catch(() => {
+            list.innerHTML = `<tr><td class="px-4 py-3 text-red-400" colspan="6">Gagal memuat data.</td></tr>`;
+        });
+}
+
+function saveJersey() {
+    const form = new FormData();
+    form.append('nama', nama.value);
+    form.append('kategori', kategori.value);
+    form.append('harga', harga.value);
+    form.append('stok', stok.value);
+    form.append('ukuran', ukuran.value);
+    if (gambarInput.files[0]) {
+        form.append('gambar', gambarInput.files[0]);
+    }
+
+    const url = currentEditId ? `${api}/${currentEditId}` : api;
+    const method = currentEditId ? 'POST' : 'POST';
+    if (currentEditId) {
+        form.append('_method', 'PUT');
+    }
+
+    fetch(url, {
+        method,
+        headers: authHeaders(),
+        body: form
+    })
+    .then(async res => {
+        if (!res.ok) {
+            const txt = await res.text();
+            alert('Gagal menyimpan: ' + txt);
+            return;
+        }
+        return res.json();
+    })
+    .then(() => {
+        resetForm();
+        loadJersey();
+    })
+    .catch(err => alert('Gagal menyimpan: ' + err.message));
+}
+
+function renderOrders(data) {
+    if (!ordersList) return;
+    if (!data.length) {
+        ordersList.innerHTML = '<p class="text-white/60">Belum ada pesanan.</p>';
+        return;
+    }
+
+    ordersList.innerHTML = data.map(o => {
+        const items = (o.items || []).map(it => {
+            const total = (it.price || 0) * (it.qty || 0);
+            return `
+                <div class="flex justify-between bg-white/5 border border-white/10 rounded-lg px-3 py-2">
+                    <div>
+                        <p class="font-semibold text-white">${it.name || 'Produk'}</p>
+                        <p class="text-white/60 text-xs">Ukuran: ${it.size || '-'} | Qty: ${it.qty || 0}</p>
+                    </div>
+                    <span class="text-cyan-400">Rp ${total.toLocaleString('id-ID')}</span>
+                </div>
+            `;
+        }).join('');
+
+        const buyer = o.user ? `${o.user.name || '-'} (${o.user.email || '-'})` : 'Guest / Unknown';
+        return `
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-4 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <p class="text-xs text-white/60">ID Pesanan</p>
+                        <p class="font-semibold">${o.id || '-'}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-white/60">Tanggal</p>
+                        <p class="font-semibold">${o.created_at || '-'}</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <p class="text-white/70 text-sm">User: <span class="text-white">${buyer}</span></p>
+                    <p class="text-white/70 text-sm">Status: <span class="text-cyan-400 font-semibold">${o.status || 'Diproses'}</span></p>
+                </div>
+                <div class="flex items-center justify-between gap-3">
+                    <p class="text-white/70 text-sm">Metode: ${o.payment_method || '-'}</p>
+                    <p class="text-lg font-semibold text-cyan-400">Rp ${(o.total || 0).toLocaleString('id-ID')}</p>
+                </div>
+                <div class="space-y-2">
+                    <p class="text-white/70 text-sm">Item</p>
+                    ${items || '<p class="text-white/60 text-sm">Tidak ada item</p>'}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function loadOrdersAdmin() {
+    if (!ordersList) return;
+    ordersList.innerHTML = '<p class="text-white/60">Memuat pesanan...</p>';
+    fetch('/api/orders/all', { headers: authHeaders() })
+        .then(async res => {
+            if (res.status === 403) throw new Error('Hanya admin yang dapat melihat pesanan');
+            if (!res.ok) throw new Error('Gagal memuat');
+            return res.json();
+        })
+        .then(data => renderOrders(data.data || []))
+        .catch(err => {
+            console.error(err);
+            ordersList.innerHTML = `<p class="text-red-400">Gagal memuat pesanan: ${err.message}</p>`;
+        });
+}
+
+function deleteJersey(id) {
+    if (!confirm('Hapus data ini?')) return;
+
+    fetch(`${api}/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders()
+    })
+    .then(async res => {
+        if (res.status === 401) {
+            alert('Sesi habis, silakan login ulang.');
+            localStorage.removeItem('token');
+            localStorage.removeItem('bearerToken');
+            localStorage.removeItem('isAdmin');
+            location.href = '/login/index.html';
+            return;
+        }
+        if (!res.ok) {
+            const txt = await res.text();
+            alert('Gagal menghapus: ' + txt);
+            return;
+        }
+        loadJersey();
+    })
+    .catch(err => alert('Gagal menghapus: ' + err.message));
+}
+
+function startEdit(j) {
+    currentEditId = j.id;
+    nama.value = j.nama;
+    kategori.value = j.kategori;
+    harga.value = j.harga;
+    stok.value = j.stok;
+    ukuran.value = j.ukuran;
+    currentImage.textContent = j.gambar ? j.gambar : '-';
+    saveBtn.textContent = 'Update';
+    cancelBtn.classList.remove('hidden');
+    if (gambarName) gambarName.textContent = 'Tidak ada file yang dipilih';
+}
+
+function resetForm() {
+    currentEditId = null;
+    nama.value = '';
+    kategori.value = '';
+    harga.value = '';
+    stok.value = '';
+    ukuran.value = '';
+    saveBtn.textContent = 'Tambah';
+    gambarInput.value = '';
+    if (gambarName) gambarName.textContent = 'Tidak ada file yang dipilih';
+    currentImage.textContent = '-';
+    cancelBtn.classList.add('hidden');
+}
+
+(async () => {
+    const ok = await ensureAdmin();
+    if (ok) {
+        loadJersey();
+        loadOrdersAdmin();
+    }
+})();
+
+refreshOrdersBtn?.addEventListener('click', loadOrdersAdmin);
+
+gambarBtn?.addEventListener('click', () => gambarInput?.click());
+gambarInput?.addEventListener('change', () => {
+    if (!gambarInput?.files?.length) {
+        if (gambarName) gambarName.textContent = 'Tidak ada file yang dipilih';
+        return;
+    }
+    const file = gambarInput.files[0];
+    if (gambarName) gambarName.textContent = file.name;
+});
+</script>
+</body>
+</html>

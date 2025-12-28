@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Persela Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/css/base.css">
+</head>
+<body class="text-white" data-theme="dark">
+<nav class="sticky top-0 z-50 nav-surface backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-6">
+        <a href="/index.html" class="flex items-center gap-3">
+            <div class="relative w-40 h-12 overflow-hidden">
+                <img src="/logo-dark.png" alt="Logo" class="w-full h-full object-contain logo-dark">
+                <img src="/logo-light.png" alt="Logo" class="w-full h-full object-contain hidden logo-light">
+            </div>
+        </a>
+
+        <div class="flex-1 flex justify-center">
+            <div class="flex items-center gap-6 text-sm font-semibold">
+                <a href="/index.html" class="nav-link">Beranda</a>
+                <a href="/produk/index.html" class="nav-link">Produk</a>
+                <a href="/orders/index.html" class="nav-link">Riwayat</a>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3" id="authMenu"></div>
+
+        <div class="flex items-center gap-3 text-white">
+            <div class="relative">
+                <button id="navSearchBtn" title="Cari produk" class="p-2 rounded-full hover:bg-white/10">
+                    <img src="/icons/search.png" alt="search" class="w-5 h-5">
+                </button>
+                <div id="navSearchBar" class="hidden fixed left-1/2 -translate-x-1/2 top-20 bg-white/95 backdrop-blur text-black rounded-full px-4 py-2 flex items-center gap-3 shadow-2xl border border-black/5 w-[min(90%,640px)]">
+                    <img src="/icons/search.png" alt="search" class="w-5 h-5 opacity-70">
+                    <input id="navSearchInput" type="text" placeholder="Search" class="flex-1 outline-none bg-transparent text-base text-gray-700 placeholder-gray-400">
+                    <button id="navSearchCancel" class="text-sm text-blue-600 px-3 py-1 rounded-full hover:bg-blue-50">Cancel</button>
+                </div>
+            </div>
+            <a href="/favorites/index.html" title="Favorit" class="p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/fav.png" alt="favorit" class="w-5 h-5">
+            </a>
+            <a href="/cart/index.html" title="Keranjang" class="relative p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/cart.png" alt="cart" class="w-5 h-5">
+                <span id="cartBadge" class="hidden absolute -top-1 -right-1 text-xs px-1.5 py-0.5 rounded-full bg-cyan-500 text-black font-semibold"></span>
+            </a>
+            <a href="/profile/index.html" id="profileIcon" title="Profil" class="hidden p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/profile.png" alt="profil" class="w-5 h-5">
+            </a>
+            <div id="authButtons" class="flex items-center gap-2"></div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+<section class="relative overflow-hidden rounded-3xl p-6 md:p-10 border border-white/5 min-h-[80vh] flex items-center mt-6"
+         style="max-width: 1300px; margin: 0 auto;">
+  <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+    <source src="/hero.mp4" type="video/mp4">
+  </video>
+  <div class="absolute inset-0" style="background: linear-gradient(140deg, rgba(4,9,16,0.78), rgba(7,16,28,0.75));"></div>
+  <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
+  <div class="relative max-w-3xl mx-auto text-center space-y-3 md:space-y-4 text-white px-4">
+    <span class="inline-flex px-4 py-2 rounded-full bg-cyan-500/15 text-cyan-300 text-xs font-semibold tracking-wide">
+      OFFICIAL MERCHANDISE
+    </span>
+
+    <div class="flex justify-center">
+      <img src="/hero-heading.png" alt="Dukung Persela Dengan Gaya" class="max-w-full md:max-w-2xl drop-shadow mt-1 md:mt-2" loading="lazy">
+    </div>
+
+    <p class="text-white/80 text-lg mt-0">
+      Platform resmi penjualan jersey Persela Lamongan dengan sistem modern.
+    </p>
+
+    <div class="flex justify-center">
+      <a href="/produk/index.html" class="px-8 py-3 bg-cyan-500 text-black font-semibold rounded-full hover:bg-cyan-400 transition shadow-lg shadow-cyan-500/20">
+        Lihat Produk
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="mt-16 px-4 md:px-8" data-animate="fade-up">
+  <h2 class="text-2xl font-bold text-center mb-10">
+    Produk <span class="text-cyan-400">Unggulan</span>
+  </h2>
+
+  <div class="relative flex items-center gap-4">
+    <button id="unggulan-prev" class="slider-btn hidden md:flex" aria-label="Sebelumnya">
+      <span class="text-xl">&#8592;</span>
+    </button>
+    <div class="flex-1 overflow-hidden relative">
+      <div class="slider-fade slider-fade-left" aria-hidden="true"></div>
+      <div id="unggulan" class="slider-track"></div>
+      <div class="slider-fade slider-fade-right" aria-hidden="true"></div>
+    </div>
+    <button id="unggulan-next" class="slider-btn hidden md:flex" aria-label="Selanjutnya">
+      <span class="text-xl">&#8594;</span>
+    </button>
+  </div>
+</section>
+
+<section class="mt-16">
+  <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-lg">
+    <img src="/match-banner.jpg"
+         alt="Match Worn Banner"
+         class="w-full h-full object-cover block opacity-90">
+  </div>
+</section>
+</main>
+
+<footer class="bg-[#070c17]/90 border-t border-white/5 mt-16">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3">
+        <div class="space-y-4">
+            <div class="relative w-40 h-12 overflow-hidden">
+                <img src="/logo-dark.png" alt="Logo" class="w-full h-full object-contain logo-dark">
+                <img src="/logo-light.png" alt="Logo" class="w-full h-full object-contain hidden logo-light">
+            </div>
+            <p class="text-white/60 text-sm leading-relaxed">
+                Dukung Persela dengan gaya. Merchandise resmi, proses cepat, dan pengalaman belanja modern.
+            </p>
+            <div class="flex gap-3">
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">IG</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">TW</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">IN</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">YT</span>
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="font-semibold text-white">Contact Us</h3>
+            <p class="text-white/70 text-sm">Lamongan, Jawa Timur, Indonesia</p>
+            <p class="text-white/70 text-sm">support@perselastore.id</p>
+            <p class="text-white/70 text-sm">+62 812-0000-0000</p>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="font-semibold text-white">Stay Updated</h3>
+            <p class="text-white/70 text-sm">Daftar untuk info rilis produk dan promo terbaru.</p>
+            <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-2">
+                <input type="email" placeholder="Email address" class="flex-1 bg-transparent text-sm text-white outline-none placeholder-white/40">
+                <button class="px-4 py-2 bg-cyan-500 text-black text-sm font-semibold rounded-lg hover:bg-cyan-400">Join</button>
+            </div>
+        </div>
+    </div>
+    <div class="border-t border-white/5 text-center text-xs text-white/50 py-4">
+        PerselaStore &copy; <span id="footer-year"></span>. All rights reserved.
+    </div>
+</footer>
+
+<script src="/assets/js/mock-api.js"></script>
+<script src="/assets/js/app.js"></script>
+<script>
+const unggulanEl = document.getElementById("unggulan");
+const prevBtn = document.getElementById("unggulan-prev");
+const nextBtn = document.getElementById("unggulan-next");
+let autoTimer = null;
+const AUTO_DELAY = 3500;
+
+function resolveImage(path) {
+  if (!path) return 'https://placehold.co/400x300/0f172a/22d3ee?text=Persela+Jersey';
+  if (path.startsWith('http') || path.startsWith('//')) return path;
+  return `/storage/jerseys/${path}`;
+}
+
+function scrollSlider(direction = 1) {
+  const card = unggulanEl.querySelector('.unggulan-card');
+  const step = card ? card.getBoundingClientRect().width + 24 : Math.max(unggulanEl.clientWidth * 0.9, 280);
+  const max = unggulanEl.scrollWidth - unggulanEl.clientWidth;
+  const pos = unggulanEl.scrollLeft;
+  const next = pos + direction * step;
+
+  if (direction > 0 && pos >= max - step / 2) {
+    unggulanEl.scrollTo({ left: 0, behavior: 'smooth' });
+  } else if (direction < 0 && pos <= step / 2) {
+    unggulanEl.scrollTo({ left: max, behavior: 'smooth' });
+  } else {
+    unggulanEl.scrollBy({ left: direction * step, behavior: 'smooth' });
+  }
+}
+
+function startAutoSlide() {
+  stopAutoSlide();
+  autoTimer = setInterval(() => {
+    if (!unggulanEl?.children.length) return;
+    scrollSlider(1);
+  }, AUTO_DELAY);
+}
+
+function stopAutoSlide() {
+  if (autoTimer) {
+    clearInterval(autoTimer);
+    autoTimer = null;
+  }
+}
+
+async function loadTopProducts() {
+  unggulanEl.innerHTML = '<p class="text-white/60 text-center w-full py-6">Memuat produk...</p>';
+  try {
+    const res = await fetch('/api/jerseys?limit=20&orderBy=created_at&sortBy=desc');
+    const data = await res.json();
+    const items = data.data || [];
+    if (!items.length) {
+      unggulanEl.innerHTML = '<p class="text-white/60 text-center w-full py-6">Belum ada produk.</p>';
+      return;
+    }
+    const grouped = {};
+    items.forEach(p => {
+      if (!grouped[p.nama]) {
+        grouped[p.nama] = { ...p };
+      }
+    });
+    const uniqueItems = Object.values(grouped);
+
+    unggulanEl.innerHTML = uniqueItems.map(p => {
+      const img = resolveImage(p.gambar);
+      return `
+        <div class="unggulan-card bg-white/5 p-4 rounded-xl hover:scale-[1.02] transition border border-white/10 snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px]">
+          <img src="${img}" class="rounded-lg mb-4 w-full h-56 md:h-64 object-cover" loading="lazy" alt="${p.nama}">
+          <h3 class="font-semibold text-lg mb-1">${p.nama}</h3>
+          <p class="text-cyan-400 text-sm">Rp ${Number(p.harga || 0).toLocaleString("id-ID")}</p>
+          <a href="/produk-detail.html?id=${p.id}" class="block mt-4 text-center bg-cyan-500 py-2 rounded-lg hover:bg-cyan-400 transition font-semibold">
+            Lihat Detail
+          </a>
+        </div>
+      `;
+    }).join('');
+
+    startAutoSlide();
+  } catch (e) {
+    console.error(e);
+    unggulanEl.innerHTML = '<p class="text-red-400 text-center w-full py-6">Gagal memuat produk.</p>';
+  }
+}
+
+loadTopProducts();
+
+prevBtn?.addEventListener('click', () => scrollSlider(-1));
+nextBtn?.addEventListener('click', () => scrollSlider(1));
+
+[unggulanEl, prevBtn, nextBtn].forEach(el => {
+  el?.addEventListener('mouseenter', stopAutoSlide);
+  el?.addEventListener('mouseleave', startAutoSlide);
+});
+</script>
+
+<style>
+.slider-track{
+  display:flex;
+  gap:24px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-bottom:10px;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+.slider-track::-webkit-scrollbar{display:none;}
+.slider-btn{
+  width:44px;
+  height:44px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:9999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.04);
+  color:white;
+  transition:.2s;
+}
+.slider-btn:hover{border-color:#22d3ee; color:#22d3ee;}
+.slider-fade{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:60px;
+  pointer-events:none;
+  z-index:2;
+}
+.slider-fade-left{
+  left:0;
+  background:linear-gradient(90deg, rgba(7,12,22,0.6), rgba(7,12,22,0));
+}
+.slider-fade-right{
+  right:0;
+  background:linear-gradient(-90deg, rgba(7,12,22,0.6), rgba(7,12,22,0));
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+[data-animate] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+[data-animate].show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<script>
+const animatedSections = document.querySelectorAll('[data-animate]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+animatedSections.forEach(sec => observer.observe(sec));
+</script>
+</body>
+</html>

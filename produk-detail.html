@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk - Persela Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/css/base.css">
+</head>
+<body class="text-white" data-theme="dark">
+<nav class="sticky top-0 z-50 nav-surface backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-6">
+        <a href="/index.html" class="flex items-center gap-3">
+            <div class="relative w-40 h-12 overflow-hidden">
+                <img src="/logo-dark.png" alt="Logo" class="w-full h-full object-contain logo-dark">
+                <img src="/logo-light.png" alt="Logo" class="w-full h-full object-contain hidden logo-light">
+            </div>
+        </a>
+
+        <div class="flex-1 flex justify-center">
+            <div class="flex items-center gap-6 text-sm font-semibold">
+                <a href="/index.html" class="nav-link">Beranda</a>
+                <a href="/produk/index.html" class="nav-link">Produk</a>
+                <a href="/orders/index.html" class="nav-link">Riwayat</a>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3" id="authMenu"></div>
+
+        <div class="flex items-center gap-3 text-white">
+            <div class="relative">
+                <button id="navSearchBtn" title="Cari produk" class="p-2 rounded-full hover:bg-white/10">
+                    <img src="/icons/search.png" alt="search" class="w-5 h-5">
+                </button>
+                <div id="navSearchBar" class="hidden fixed left-1/2 -translate-x-1/2 top-20 bg-white/95 backdrop-blur text-black rounded-full px-4 py-2 flex items-center gap-3 shadow-2xl border border-black/5 w-[min(90%,640px)]">
+                    <img src="/icons/search.png" alt="search" class="w-5 h-5 opacity-70">
+                    <input id="navSearchInput" type="text" placeholder="Search" class="flex-1 outline-none bg-transparent text-base text-gray-700 placeholder-gray-400">
+                    <button id="navSearchCancel" class="text-sm text-blue-600 px-3 py-1 rounded-full hover:bg-blue-50">Cancel</button>
+                </div>
+            </div>
+            <a href="/favorites/index.html" title="Favorit" class="p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/fav.png" alt="favorit" class="w-5 h-5">
+            </a>
+            <a href="/cart/index.html" title="Keranjang" class="relative p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/cart.png" alt="cart" class="w-5 h-5">
+                <span id="cartBadge" class="hidden absolute -top-1 -right-1 text-xs px-1.5 py-0.5 rounded-full bg-cyan-500 text-black font-semibold"></span>
+            </a>
+            <a href="/profile/index.html" id="profileIcon" title="Profil" class="hidden p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/profile.png" alt="profil" class="w-5 h-5">
+            </a>
+            <div id="authButtons" class="flex items-center gap-2"></div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+<div class="grid md:grid-cols-2 gap-12">
+    <div class="product-image-wrapper">
+        <div class="bg-white rounded-2xl p-1">
+            <img id="product-image" class="product-image rounded-xl">
+        </div>
+    </div>
+
+    <div>
+        <h1 id="product-name" class="text-3xl font-bold"></h1>
+        <p id="product-price" class="text-cyan-400 text-xl mt-2"></p>
+
+        <div class="mt-6">
+            <h4 class="font-semibold mb-2">Pilih Ukuran</h4>
+            <div id="size-container" class="grid grid-cols-4 gap-3"></div>
+            <p id="size-info" class="text-sm text-white/60 mt-2"></p>
+        </div>
+
+        <button id="add-to-cart"
+            class="mt-8 w-full bg-white text-cyan-900 py-4 rounded-full text-lg font-semibold">
+            Add to Bag
+        </button>
+
+        <button id="favorite-btn"
+            class="mt-3 w-full border border-white/20 py-3 rounded-full">
+            Favorite &#9825;
+        </button>
+
+        <div class="mt-10 text-sm text-white/70 space-y-4">
+            <div>
+                <h4 class="font-semibold">Shipping</h4>
+                <p>Kamu akan melihat opsi pengiriman saat checkout.</p>
+            </div>
+
+            <div>
+                <h4 class="font-semibold">Free Pickup</h4>
+                <p class="underline">Cari Toko Terdekat</p>
+            </div>
+
+            <div>
+                <p id="product-desc"></p>
+                <ul class="list-disc ml-5 mt-2">
+                    <li id="product-style"></li>
+                </ul>
+            </div>
+
+            <div class="border-t border-white pt-4">
+                <strong>Reviews (783)</strong> ?????
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+
+<footer class="bg-[#070c17]/90 border-t border-white/5 mt-16">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3">
+        <div class="space-y-4">
+            <div class="relative w-40 h-12 overflow-hidden">
+                <img src="/logo-dark.png" alt="Logo" class="w-full h-full object-contain logo-dark">
+                <img src="/logo-light.png" alt="Logo" class="w-full h-full object-contain hidden logo-light">
+            </div>
+            <p class="text-white/60 text-sm leading-relaxed">
+                Dukung Persela dengan gaya. Merchandise resmi, proses cepat, dan pengalaman belanja modern.
+            </p>
+            <div class="flex gap-3">
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">IG</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">TW</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">IN</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">YT</span>
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="font-semibold text-white">Contact Us</h3>
+            <p class="text-white/70 text-sm">Lamongan, Jawa Timur, Indonesia</p>
+            <p class="text-white/70 text-sm">support@perselastore.id</p>
+            <p class="text-white/70 text-sm">+62 812-0000-0000</p>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="font-semibold text-white">Stay Updated</h3>
+            <p class="text-white/70 text-sm">Daftar untuk info rilis produk dan promo terbaru.</p>
+            <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-2">
+                <input type="email" placeholder="Email address" class="flex-1 bg-transparent text-sm text-white outline-none placeholder-white/40">
+                <button class="px-4 py-2 bg-cyan-500 text-black text-sm font-semibold rounded-lg hover:bg-cyan-400">Join</button>
+            </div>
+        </div>
+    </div>
+    <div class="border-t border-white/5 text-center text-xs text-white/50 py-4">
+        PerselaStore &copy; <span id="footer-year"></span>. All rights reserved.
+    </div>
+</footer>
+
+<script src="/assets/js/mock-api.js"></script>
+<script src="/assets/js/app.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const PRODUCT_ID = Number(params.get('id'));
+const ALL_SIZES = ['XS','S','M','L','XL','XXL'];
+let selectedSize = null;
+let product = null;
+let sizeList = [];
+
+function resolveImage(path) {
+    if (!path) return 'https://placehold.co/600x400/0f172a/22d3ee?text=Persela+Jersey';
+    if (path.startsWith('http') || path.startsWith('//')) return path;
+    return `/storage/jerseys/${path}`;
+}
+
+async function loadProduct() {
+    if (!PRODUCT_ID) {
+        alert('ID produk tidak ditemukan');
+        window.location.href = '/produk/index.html';
+        return;
+    }
+    try {
+        const res = await fetch(`/api/jerseys/${PRODUCT_ID}`);
+        if (!res.ok) throw new Error('Produk tidak ditemukan');
+        product = await res.json();
+    } catch (e) {
+        alert('Produk tidak ditemukan');
+        window.location.href = '/produk/index.html';
+        return;
+    }
+
+    await loadSizes(product.nama);
+
+    const img = resolveImage(product.gambar);
+    document.getElementById('product-image').src = img;
+    document.getElementById('product-name').innerText = product.nama;
+    document.getElementById('product-price').innerText =
+        'Rp ' + Number(product.harga || 0).toLocaleString('id-ID');
+
+    document.getElementById('product-desc').innerText =
+        product.deskripsi ?? 'Jersey Persela Lamongan dengan bahan premium.';
+
+    document.getElementById('product-style').innerText =
+        'Kategori: ' + (product.kategori || '-');
+
+    syncFavoriteButton();
+    renderSizes();
+}
+
+async function loadSizes(name) {
+    try {
+        const res = await fetch('/api/jerseys?limit=200&search=' + encodeURIComponent(name));
+        const data = await res.json();
+        const items = (data.data || []).filter(p => p.nama === name);
+        const sizes = new Set();
+        items.forEach(p => {
+            (p.ukuran || '').split(',').map(s => s.trim()).filter(Boolean).forEach(s => sizes.add(s.toUpperCase()));
+        });
+        sizeList = Array.from(sizes).sort((a,b) => ALL_SIZES.indexOf(a) - ALL_SIZES.indexOf(b));
+    } catch (e) {
+        sizeList = (product?.ukuran || '').split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
+        sizeList.sort((a,b) => ALL_SIZES.indexOf(a) - ALL_SIZES.indexOf(b));
+    }
+}
+
+function renderSizes() {
+    const sizeContainer = document.getElementById('size-container');
+    const sizeInfo = document.getElementById('size-info');
+    const addBtn = document.getElementById('add-to-cart');
+    sizeContainer.innerHTML = '';
+    selectedSize = null;
+
+    const hasAvailable = sizeList.length > 0;
+    addBtn.disabled = !hasAvailable;
+    sizeInfo.innerText = hasAvailable
+        ? ''
+        : 'Ukuran belum tersedia. Silakan cek kembali nanti.';
+
+    ALL_SIZES.forEach(size => {
+        const available = sizeList.includes(size);
+        const btn = document.createElement('button');
+        btn.className = 'size-btn' + (available ? '' : ' size-btn-disabled');
+        btn.dataset.size = size;
+        btn.innerText = size;
+        btn.disabled = !available;
+        if (available) {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedSize = size;
+            });
+        }
+        sizeContainer.appendChild(btn);
+    });
+}
+
+loadProduct();
+
+document.getElementById('add-to-cart').addEventListener('click', () => {
+    if (!product) {
+        alert('Produk belum siap');
+        return;
+    }
+    if (!selectedSize) {
+        alert('Silakan pilih ukuran terlebih dahulu');
+        return;
+    }
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existing = cart.find(
+        item => item.id === product.id && item.size === selectedSize
+    );
+
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.nama,
+            price: Number(product.harga || 0),
+            image: resolveImage(product.gambar),
+            size: selectedSize,
+            qty: 1
+        });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    if (window.updateCartBadge) window.updateCartBadge();
+    alert('Produk berhasil ditambahkan ke keranjang');
+});
+
+const favBtn = document.getElementById('favorite-btn');
+
+function getFavoriteList() {
+    try {
+        return JSON.parse(localStorage.getItem('favorite')) || [];
+    } catch {
+        return [];
+    }
+}
+
+function setFavoriteButton(isFav) {
+    favBtn.innerHTML = isFav ? 'Favorited &#9829;' : 'Favorite &#9825;';
+    favBtn.classList.toggle('favorite-active', isFav);
+}
+
+function syncFavoriteButton() {
+    if (!product) return;
+    const fav = getFavoriteList();
+    setFavoriteButton(fav.some(p => p.id === product.id));
+}
+
+favBtn.addEventListener('click', () => {
+    if (!product) return;
+
+    let fav = getFavoriteList();
+    const idx = fav.findIndex(p => p.id === product.id);
+
+    if (idx >= 0) {
+        fav.splice(idx, 1);
+        setFavoriteButton(false);
+    } else {
+        fav.push(product);
+        setFavoriteButton(true);
+    }
+
+    localStorage.setItem('favorite', JSON.stringify(fav));
+});
+</script>
+
+<style>
+.product-image-wrapper{
+    max-width: 460px;
+    margin: 0 auto;
+}
+.product-image{
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: cover;
+}
+@media (max-width: 640px){
+    .product-image-wrapper{
+        max-width: 360px;
+    }
+    .product-image{
+        max-height: 440px;
+    }
+}
+.size-btn-disabled{
+    opacity:.35;
+    cursor:not-allowed;
+    border-color: rgba(255,255,255,.08);
+    color: rgba(255,255,255,.6);
+}
+.size-btn-disabled:hover{
+    border-color: rgba(255,255,255,.08);
+}
+.size-btn{
+    border:1px solid rgba(255,255,255,.2);
+    padding:10px;
+    border-radius:8px;
+    transition:.2s;
+}
+.size-btn:hover{
+    border-color:#22d3ee;
+}
+.size-btn.active{
+    border-color:#22d3ee;
+    background:#22d3ee;
+    color:#0f172a;
+}
+.favorite-active{
+    border-color:#22d3ee;
+    color:#22d3ee;
+}
+</style>
+</body>
+</html>

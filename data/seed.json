@@ -1,0 +1,101 @@
+{
+  "jerseys": [
+    {
+      "id": 1,
+      "nama": "Home Jersey 24/25",
+      "kategori": "Home",
+      "harga": 300000,
+      "stok": 120,
+      "ukuran": "S,M,L,XL,XXL",
+      "deskripsi": "Jersey utama Persela dengan bahan breathable dan aksen cyan signature.",
+      "gambar": "1766438261_SnapInsta.to_576110880_18302816761271686_2376618330743527409_n.jpg",
+      "created_at": "2025-11-10T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "nama": "Away Jersey 24/25",
+      "kategori": "Away",
+      "harga": 295000,
+      "stok": 90,
+      "ukuran": "S,M,L,XL",
+      "deskripsi": "Koleksi away dengan pola garis halus dan kerah modern.",
+      "gambar": "1766438362_SnapInsta.to_581318837_18302816779271686_2584365186172795463_n.jpg",
+      "created_at": "2025-11-12T08:00:00Z"
+    },
+    {
+      "id": 3,
+      "nama": "Third Jersey Night Sky",
+      "kategori": "Third",
+      "harga": 310000,
+      "stok": 75,
+      "ukuran": "S,M,L,XL",
+      "deskripsi": "Tema night sky dengan gradasi gelap dan aksen elektrik.",
+      "gambar": "1766438394_SnapInsta.to_581318837_18302816779271686_2584365186172795463_n.jpg",
+      "created_at": "2025-11-15T08:00:00Z"
+    },
+    {
+      "id": 4,
+      "nama": "Goalkeeper Neon",
+      "kategori": "GK",
+      "harga": 280000,
+      "stok": 60,
+      "ukuran": "M,L,XL,XXL",
+      "deskripsi": "Pilihan kiper dengan warna neon dan panel mesh di punggung.",
+      "gambar": "1766457155_SnapInsta.to_542883634_18294037288271686_3383864315674652872_n.jpg",
+      "created_at": "2025-11-18T08:00:00Z"
+    },
+    {
+      "id": 5,
+      "nama": "Training Top Pro",
+      "kategori": "Training",
+      "harga": 260000,
+      "stok": 150,
+      "ukuran": "S,M,L,XL",
+      "deskripsi": "Bahan ringan anti-kusut untuk sesi latihan harian.",
+      "gambar": "1765870464_Firefly 20231212162717.jpg",
+      "created_at": "2025-11-20T08:00:00Z"
+    },
+    {
+      "id": 6,
+      "nama": "Warm Up Jacket",
+      "kategori": "Jacket",
+      "harga": 450000,
+      "stok": 40,
+      "ukuran": "M,L,XL",
+      "deskripsi": "Jaket hangat dengan lining halus dan emblem Persela bordir.",
+      "gambar": "1765828934_images (1).jpg",
+      "created_at": "2025-11-24T08:00:00Z"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin Persela",
+      "email": "admin@perselastore.id",
+      "password": "admin123",
+      "is_admin": true
+    },
+    {
+      "id": 2,
+      "name": "Rifqi Customer",
+      "email": "user@perselastore.id",
+      "password": "user123",
+      "is_admin": false
+    }
+  ],
+  "orders": [
+    {
+      "id": 10001,
+      "user_id": 2,
+      "items": [
+        { "id": 1, "name": "Home Jersey 24/25", "price": 300000, "qty": 1, "size": "L", "image": "/storage/jerseys/1766438261_SnapInsta.to_576110880_18302816761271686_2376618330743527409_n.jpg" },
+        { "id": 5, "name": "Training Top Pro", "price": 260000, "qty": 2, "size": "M", "image": "/storage/jerseys/1765870464_Firefly 20231212162717.jpg" }
+      ],
+      "total": 820000,
+      "payment_method": "Virtual Account - BCA",
+      "payment_info": "VA 1234 5678 9012 (BCA)",
+      "status": "Diproses",
+      "created_at": "2025-12-01T10:15:00Z"
+    }
+  ]
+}

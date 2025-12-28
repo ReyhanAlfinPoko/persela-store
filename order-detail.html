@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Pesanan - Persela Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/css/base.css">
+</head>
+<body class="text-white" data-theme="dark">
+<nav class="sticky top-0 z-50 nav-surface backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-6">
+        <a href="/index.html" class="flex items-center gap-3">
+            <div class="relative w-40 h-12 overflow-hidden">
+                <img src="/logo-dark.png" alt="Logo" class="w-full h-full object-contain logo-dark">
+                <img src="/logo-light.png" alt="Logo" class="w-full h-full object-contain hidden logo-light">
+            </div>
+        </a>
+
+        <div class="flex-1 flex justify-center">
+            <div class="flex items-center gap-6 text-sm font-semibold">
+                <a href="/index.html" class="nav-link">Beranda</a>
+                <a href="/produk/index.html" class="nav-link">Produk</a>
+                <a href="/orders/index.html" class="nav-link">Riwayat</a>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3" id="authMenu"></div>
+
+        <div class="flex items-center gap-3 text-white">
+            <div class="relative">
+                <button id="navSearchBtn" title="Cari produk" class="p-2 rounded-full hover:bg-white/10">
+                    <img src="/icons/search.png" alt="search" class="w-5 h-5">
+                </button>
+                <div id="navSearchBar" class="hidden fixed left-1/2 -translate-x-1/2 top-20 bg-white/95 backdrop-blur text-black rounded-full px-4 py-2 flex items-center gap-3 shadow-2xl border border-black/5 w-[min(90%,640px)]">
+                    <img src="/icons/search.png" alt="search" class="w-5 h-5 opacity-70">
+                    <input id="navSearchInput" type="text" placeholder="Search" class="flex-1 outline-none bg-transparent text-base text-gray-700 placeholder-gray-400">
+                    <button id="navSearchCancel" class="text-sm text-blue-600 px-3 py-1 rounded-full hover:bg-blue-50">Cancel</button>
+                </div>
+            </div>
+            <a href="/favorites/index.html" title="Favorit" class="p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/fav.png" alt="favorit" class="w-5 h-5">
+            </a>
+            <a href="/cart/index.html" title="Keranjang" class="relative p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/cart.png" alt="cart" class="w-5 h-5">
+                <span id="cartBadge" class="hidden absolute -top-1 -right-1 text-xs px-1.5 py-0.5 rounded-full bg-cyan-500 text-black font-semibold"></span>
+            </a>
+            <a href="/profile/index.html" id="profileIcon" title="Profil" class="hidden p-2 rounded-full hover:bg-white/10">
+                <img src="/icons/profile.png" alt="profil" class="w-5 h-5">
+            </a>
+            <div id="authButtons" class="flex items-center gap-2"></div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+<div class="max-w-4xl mx-auto space-y-4">
+    <div class="flex items-center gap-3 text-sm text-cyan-300">
+        <a href="/orders/index.html" class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 hover:border-cyan-400 transition">? Kembali</a>
+        <span class="text-white/60">Detail pesanan</span>
+    </div>
+
+    <div id="order-box" class="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
+        <p class="text-white/60 text-sm">Memuat detail pesanan...</p>
+    </div>
+</div>
+</main>
+
+<footer class="bg-[#070c17]/90 border-t border-white/5 mt-16">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3">
+        <div class="space-y-4">
+            <div class="relative w-40 h-12 overflow-hidden">
+                <img src="/logo-dark.png" alt="Logo" class="w-full h-full object-contain logo-dark">
+                <img src="/logo-light.png" alt="Logo" class="w-full h-full object-contain hidden logo-light">
+            </div>
+            <p class="text-white/60 text-sm leading-relaxed">
+                Dukung Persela dengan gaya. Merchandise resmi, proses cepat, dan pengalaman belanja modern.
+            </p>
+            <div class="flex gap-3">
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">IG</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">TW</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">IN</span>
+                <span class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-white/70">YT</span>
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="font-semibold text-white">Contact Us</h3>
+            <p class="text-white/70 text-sm">Lamongan, Jawa Timur, Indonesia</p>
+            <p class="text-white/70 text-sm">support@perselastore.id</p>
+            <p class="text-white/70 text-sm">+62 812-0000-0000</p>
+        </div>
+
+        <div class="space-y-3">
+            <h3 class="font-semibold text-white">Stay Updated</h3>
+            <p class="text-white/70 text-sm">Daftar untuk info rilis produk dan promo terbaru.</p>
+            <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-2">
+                <input type="email" placeholder="Email address" class="flex-1 bg-transparent text-sm text-white outline-none placeholder-white/40">
+                <button class="px-4 py-2 bg-cyan-500 text-black text-sm font-semibold rounded-lg hover:bg-cyan-400">Join</button>
+            </div>
+        </div>
+    </div>
+    <div class="border-t border-white/5 text-center text-xs text-white/50 py-4">
+        PerselaStore &copy; <span id="footer-year"></span>. All rights reserved.
+    </div>
+</footer>
+
+<script src="/assets/js/mock-api.js"></script>
+<script src="/assets/js/app.js"></script>
+<script>
+(() => {
+    const params = new URLSearchParams(window.location.search);
+    const ORDER_ID = Number(params.get('id'));
+    const box = document.getElementById('order-box');
+    const token = localStorage.getItem('token') || localStorage.getItem('bearerToken')?.replace(/^Bearer\s+/,'') || '';
+
+    function formatDate(iso) {
+        if (!iso) return '-';
+        try {
+            const d = new Date(iso);
+            if (isNaN(d.getTime())) return iso;
+            const dd = String(d.getDate()).padStart(2,'0');
+            const mm = String(d.getMonth()+1).padStart(2,'0');
+            const yyyy = d.getFullYear();
+            return `${dd}-${mm}-${yyyy}`;
+        } catch {
+            return iso;
+        }
+    }
+
+    function render(order) {
+        const items = (order.items || []).map(it => {
+            const total = (it.price || 0) * (it.qty || 0);
+            return `
+                <div class="flex justify-between bg-white/5 border border-white/10 rounded-lg px-3 py-2">
+                    <div>
+                        <p class="font-semibold">${it.name || 'Produk'}</p>
+                        <p class="text-white/60 text-xs">Ukuran: ${it.size || '-'} | Qty: ${it.qty || 0}</p>
+                    </div>
+                    <span class="text-cyan-400">Rp ${total.toLocaleString('id-ID')}</span>
+                </div>
+            `;
+        }).join('');
+
+        box.innerHTML = `
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <p class="text-xs text-white/60">Tanggal</p>
+                    <p class="font-semibold">${formatDate(order.created_at || order.date)}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-white/60">Total</p>
+                    <p class="text-lg font-semibold text-cyan-400">Rp ${(order.total || 0).toLocaleString('id-ID')}</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <p class="text-white/70 text-sm">Status: <span class="text-cyan-400 font-semibold">${order.status || 'Diproses'}</span></p>
+                ${order.user ? `<p class="text-white/60 text-xs">User: ${order.user.name || '-'} (${order.user.email || '-'})</p>` : ''}
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-sm">
+                <p class="text-white/60">Metode Pembayaran</p>
+                <p class="font-semibold">${order.payment_method || order.paymentMethod || '-'}</p>
+            </div>
+            <div class="space-y-2">
+                <p class="text-white/70 text-sm">Item</p>
+                ${items || '<p class="text-white/60 text-sm">Tidak ada item</p>'}
+            </div>
+        `;
+    }
+
+    async function load() {
+        if (!ORDER_ID) {
+            box.innerHTML = '<p class="text-red-400 text-sm">ID pesanan tidak ditemukan.</p>';
+            return;
+        }
+        box.innerHTML = '<p class="text-white/60 text-sm">Memuat detail pesanan...</p>';
+        try {
+            const res = await fetch(`/api/orders/${ORDER_ID}`, {
+                headers: token ? { 'Authorization': 'Bearer ' + token } : {}
+            });
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || 'Gagal memuat pesanan');
+            }
+            const data = await res.json();
+            render(data.data || {});
+        } catch (e) {
+            console.error(e);
+            box.innerHTML = `<p class="text-red-400 text-sm">Gagal memuat detail pesanan.</p>`;
+        }
+    }
+
+    load();
+})();
+</script>
+</body>
+</html>
